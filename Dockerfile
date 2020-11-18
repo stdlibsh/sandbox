@@ -10,7 +10,7 @@ COPY pyproject.toml .
 COPY poetry.lock .
 
 RUN pip install --upgrade --no-cache-dir pip setuptools poetry && \
-    poetry config virtualenvs.create false && \
+    poetry config virtualenvs.in-project true && \
     poetry install --no-dev
 
 COPY docker-entrypoint.sh /usr/local/bin/
