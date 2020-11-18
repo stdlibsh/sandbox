@@ -1,6 +1,6 @@
 name: Build
 
-# TODO: Change trigger to push to master
+# TODO: Change trigger to push to master.
 on:
   pull_request:
     branches:
