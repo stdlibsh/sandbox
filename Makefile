@@ -8,6 +8,14 @@ format:
 	isort --profile=black .
 	black .
 
+lint-isort:
+	isort --profile=black --check .
+
+lint-black:
+	black --check .
+
+lint: lint-isort lint-black
+
 build:
 	docker image build -t sandbox .
 
