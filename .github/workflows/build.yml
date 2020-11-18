@@ -35,7 +35,7 @@ jobs:
       - name: Export app version
         run: echo "VERSION=$(grep -oP --color=never '\d+\.\d+\.\d+' .bumpversion.cfg)" >> $GITHUB_ENV
       - name: Build Docker image
-        run: docker image build -t sandbox .
+        run: docker image build -t sandbox --cache-from ${{ secrets.GCP_ARTIFACT_REGISTRY }}/sandbox:latest .
       - name: Tag Docker image
         run: |
           docker image tag sandbox ${{ secrets.GCP_ARTIFACT_REGISTRY }}/sandbox:latest
