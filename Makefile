@@ -1,8 +1,11 @@
 run:
 	uvicorn sandbox.asgi:application --reload
 
+test:
+	pytest -vv --cov=sandbox --cov-report=term-missing
+
 format:
-	isort --profile black .
+	isort --profile=black .
 	black .
 
 build:
