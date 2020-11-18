@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -16,5 +16,7 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-      - name: Use gcloud CLI
-        run: gcloud info
+      - name: Configure Docker
+        run: gcloud beta auth configure-docker us-central1-docker.pkg.dev
+      - name: Build Docker image
+        run: docker image build -t sandbox .
