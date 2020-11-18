@@ -16,6 +16,7 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      - run: gcloud components install beta
       - run: gcloud --version
       - name: Configure Docker
         run: gcloud beta auth configure-docker us-central1-docker.pkg.dev
