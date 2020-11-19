@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up gcloud Cloud SDK environment
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      - name: Configure credentials
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GCP_CLUSTER }} \
+            --zone ${{ secrets.GCP_ZONE }} \
+            --project ${{ secrets.GCP_PROJECT_ID }}
+      - name: Deploy
+        run: |
+          helm upgrade \
+              --atomic \
+              --install \
+              --namespace sandbox-production \
+              --set image.registry=${{ secrets.GCP_ARTIFACT_REGISTRY }} \
+              sandbox helm/sandbox/
