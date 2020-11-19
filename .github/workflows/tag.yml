@@ -19,6 +19,10 @@ jobs:
           python -m pip install -U pip setuptools poetry
           poetry config virtualenvs.create false
           poetry install
+      - name: Configure git
+        run: |
+          git config --global user.email "octocat@github.com"
+          git config --global user.name "The Octocat"
       - name: Bump version
         run: bump2version patch
       - name: Export app version
@@ -44,9 +48,5 @@ jobs:
         run: |
           docker image push ${{ secrets.GCP_ARTIFACT_REGISTRY }}/sandbox:latest
           docker image push ${{ secrets.GCP_ARTIFACT_REGISTRY }}/sandbox:$VERSION
-      - name: Configure git
-        run: |
-          git config --global user.email "octocat@github.com"
-          git config --global user.name "The Octocat"
       - name: Push changes to repo
         run: git push origin master --follow-tags
