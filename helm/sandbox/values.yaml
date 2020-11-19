@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  registry: PLACEHOLDER
+  name: sandbox
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
