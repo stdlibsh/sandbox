@@ -1,8 +1,7 @@
 name: Build
 
-# TODO: Change trigger to push to master
 on:
-  pull_request:
+  push:
     branches:
       - master
 
@@ -26,7 +25,8 @@ jobs:
           git config --global user.name "The Octocat"
       - name: Bump version
         run: bump2version patch
-      # TODO: Push changes
+      - name: Push changes to repo
+        run: git push origin master --follow-tags
       - name: Export app version
         run: echo "VERSION=$(grep -oP --color=never '\d+\.\d+\.\d+' .bumpversion.cfg)" >> $GITHUB_ENV
       - name: Set up gcloud Cloud SDK environment
