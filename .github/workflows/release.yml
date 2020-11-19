@@ -1,9 +1,9 @@
 name: Release
 
 on:
-  pull_request:
-    branches:
-      - master
+  release:
+    types:
+      - published
 
 jobs:
   release:
@@ -25,6 +25,6 @@ jobs:
           helm upgrade \
               --atomic \
               --install \
-              --namespace sandbox-testing \
+              --namespace sandbox-production \
               --set image.registry=${{ secrets.GCP_ARTIFACT_REGISTRY }} \
               sandbox helm/sandbox/
